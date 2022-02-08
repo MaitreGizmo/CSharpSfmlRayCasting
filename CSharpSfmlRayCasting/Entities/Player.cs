@@ -106,7 +106,6 @@ namespace CSharpSfmlRayCasting.Entities
                 Position += new Vector2f(moveX, moveY);
             }
 
-
             Body.Position = Position;
             Eye.Position = Position;
         }
@@ -117,6 +116,9 @@ namespace CSharpSfmlRayCasting.Entities
             float y = Position.Y;
 
             Position = new Vector2f(x, y);
+
+            Body.Position = Position;
+            Eye.Position = Position;
         }
 
         public void MoveY(float delta)
@@ -125,6 +127,9 @@ namespace CSharpSfmlRayCasting.Entities
             float y = Position.Y + delta;
 
             Position = new Vector2f(x, y);
+
+            Body.Position = Position;
+            Eye.Position = Position;
         }
     }
 }
