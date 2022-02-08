@@ -23,6 +23,7 @@ namespace CSharpSfmlRayCasting.Core
         private RenderWindow _window3D = null;
 
         private CollisionDetector _collisionDetector = null;
+        private RayCaster _rayCaster = null;
 
         Stopwatch _clock = null;
 
@@ -30,12 +31,22 @@ namespace CSharpSfmlRayCasting.Core
         {
             _world = new World(Config.MAP_PATH);
 
-            _window2D = new RenderWindow(new VideoMode((uint)(_world.Width * Config.BLOC_SIZE), (uint)(_world.Height * Config.BLOC_SIZE)), "C# - SFML - RayCasting - 2D RenderWindow", Styles.Close);
-            _window2D.Closed += new EventHandler(Window2D_Closed);
+            if (Config.SHOW_2D_WINDOW)
+            {
+                _window2D = new RenderWindow(new VideoMode((uint)(_world.Width * Config.BLOC_SIZE), (uint)(_world.Height * Config.BLOC_SIZE)), "C# - SFML - RayCasting - 2D RenderWindow", Styles.Close);
+                _window2D.Closed += new EventHandler(Window2D_Closed);
+            }
+
+            if (Config.SHOW_3D_WINDOW)
+            {
+                _window3D = new RenderWindow(new VideoMode(Config.WIN3D_WIDTH, Config.WIN3D_HEIGHT), "C# - SFML - RayCasting - 3D RenderWindow", Styles.Close);
+                _window3D.Closed += new EventHandler(Window3D_Closed);
+            }
 
             _player = new Player();
 
             _collisionDetector = new CollisionDetector(ref _world, ref _player);
+            _rayCaster = new RayCaster(ref _world, ref _player);
         }
 
         public void Run()
@@ -53,10 +64,14 @@ namespace CSharpSfmlRayCasting.Core
 
                     _collisionDetector.DetectAndCorrectCollisions();
 
+                    _rayCaster.CastRays();
+
                     _clock.Restart();
                 }
 
                 Window2D_DisplayFrame();
+
+                Window3D_DisplayFrame();
             }
         }
 
@@ -79,16 +94,31 @@ namespace CSharpSfmlRayCasting.Core
 
         private void Window2D_DisplayFrame()
         {
-            _window2D.Clear(Config.WIN_2D_CLEAR_COLOR);
+            if(_window2D != null && _window2D.IsOpen)
+            {
+                _window2D.Clear(Config.WIN_2D_CLEAR_COLOR);
 
-            _world.WorldBlocs.ForEach(x => _window2D.Draw(x.Vertices));
+                _world.WorldBlocs.ForEach(x => _window2D.Draw(x.Vertices));
 
-            //_world.WorldMatrix.ForEach(x => _window2D.Draw(x));
+                _rayCaster.Rays.ForEach(x => _window2D.Draw(x.Vertices));
 
-            _window2D.Draw(_player.Body);
-            _window2D.Draw(_player.Eye);
+                _window2D.Draw(_player.Body);
+                _window2D.Draw(_player.Eye);
 
-            _window2D.Display();
+                _window2D.Display();
+            }
+        }
+
+        private void Window3D_DisplayFrame()
+        {
+            if(_window3D != null && _window3D.IsOpen)
+            {
+                _window3D.Clear(Config.WIN_3D_CLEAR_COLOR);
+
+
+
+                _window3D.Display();
+            }
         }
 
         #endregion

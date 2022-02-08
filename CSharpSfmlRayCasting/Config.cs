@@ -15,27 +15,37 @@ namespace CSharpSfmlRayCasting
     static class Config
     {
         // Simulation config
-        public static readonly uint FRAME_DIFF_TIME = 30;
-        public static readonly bool SHOW_DEBUG = true;
+        public const uint FRAME_DIFF_TIME = 30; // [ms]
+
+        public const bool SHOW_2D_WINDOW = true;
+        public const bool SHOW_3D_WINDOW = false;
 
         // 2D Window config
-        public static readonly uint WIN_2D_WIDTH = 800;
-        public static readonly uint WIN_2D_HEIGHT = 600;
         public static readonly Color WIN_2D_CLEAR_COLOR = new Color(150, 150, 150);
 
+        // 3D Window config
+        public const int WIN3D_WIDTH = 800; // [px]
+        public const int WIN3D_HEIGHT = 400; // [px]
+        public static readonly Color WIN_3D_CLEAR_COLOR = new Color(150, 150, 150);
+
         // 2D World render config
-        public static readonly uint BLOC_SIZE = 20;
+        public const uint BLOC_SIZE = 10; // [px]
 
         // Map config
-        public static readonly string MAP_PATH = @"Ressources\map.bmp";
-        public static readonly uint MAP_BORDER_COLOR_G = 255;
+        public const string MAP_PATH = @"Ressources\map.bmp";
+        public const uint MAP_BORDER_COLOR_G = 255;
 
         // Player config
-        public static readonly int PLAYER_SPAWN_X = 1000;
-        public static readonly int PLAYER_SPAWN_Y = 200;
-        public static readonly int PLAYER_RADIUS = (int)BLOC_SIZE / 2;
-        public static readonly float PLAYER_MOVE_SPEED = 2.5f;
-        public static readonly float PLAYER_SPRINT_MULT = 2.0f;
-        public static readonly float PLAYER_ROTATE_SPEED = MathExt.DegToRad(5.0f);
+        public const int PLAYER_SPAWN_X = 500; // [px]
+        public const int PLAYER_SPAWN_Y = 100; // [px]
+        public const int PLAYER_RADIUS = (int)BLOC_SIZE / 2; // [px]
+        public const float PLAYER_MOVE_SPEED = 2.5f; // [px / frame]
+        public const float PLAYER_SPRINT_MULT = 2.0f;
+        public static readonly float PLAYER_ROTATE_SPEED = MathExt.DegToRad(5.0f); // [deg] -> [rad]
+        public const float PLAYER_FOV = 60.0f; // [deg]
+
+        // RayCaster config
+        public static readonly float RAY_DIFF_ANGLE = PLAYER_FOV / WIN3D_WIDTH;
+        public const float RAY_LENGTH = 300.0f;
     }
 }
