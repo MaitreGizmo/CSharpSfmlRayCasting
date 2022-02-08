@@ -21,6 +21,8 @@ namespace CSharpSfmlRayCasting.Core
 
         public List<Ray> Rays { get; set; } = new List<Ray>();
 
+        public VertexArray FovRender2D { get; set; } = null;
+
         public RayCaster(ref World world, ref Player player)
         {
             _world = world;
@@ -29,8 +31,16 @@ namespace CSharpSfmlRayCasting.Core
             float lowerBound = -1.0f * Config.PLAYER_FOV / 2.0f;
             float upperBound = Config.PLAYER_FOV / 2.0f;
 
+            // create all the rays to cast through the world
             for (float delta = lowerBound; delta < upperBound; delta += Config.RAY_DIFF_ANGLE)
                 Rays.Add(new Ray(_player.Position, _player.Rotation + delta));
+
+            // create the 2D render of the FOV
+            FovRender2D = new VertexArray(PrimitiveType.TriangleFan, (uint)Rays.Count + 1);
+            FovRender2D[0] = new Vertex(_player.Position, Color.White);
+
+            for(int i = 1; i <= Rays.Count; ++i)
+                FovRender2D[(uint)i] = new Vertex(Rays[i - 1].Destination, Color.White);
         }
 
         public void CastRays()
@@ -45,8 +55,8 @@ namespace CSharpSfmlRayCasting.Core
             for (float i = lowerBound; i < upperBound; i += Config.RAY_DIFF_ANGLE)
             {
                 Rays[rayIndex].Rotation = _player.Rotation + MathExt.DegToRad(i);
-                Rays[rayIndex].SetOrigin(_player.Position);
-                Rays[rayIndex].SetDestination(_player.Position);
+                Rays[rayIndex].Origin = _player.Position;
+                Rays[rayIndex].Destination = _player.Position;
 
                 tempDest = _player.Position;
 
@@ -62,10 +72,16 @@ namespace CSharpSfmlRayCasting.Core
                         break;
                 }
 
-                Rays[rayIndex].SetDestination(tempDest);
+                Rays[rayIndex].Destination = tempDest;
 
                 ++rayIndex;
             }
+
+            // update FOV render 2D
+            for (int i = 1; i <= Rays.Count; ++i)
+                FovRender2D[(uint)i] = new Vertex(Rays[i - 1].Destination, Color.White);
+
+            FovRender2D[0] = new Vertex(_player.Position, Color.White);
 
             return;
         }

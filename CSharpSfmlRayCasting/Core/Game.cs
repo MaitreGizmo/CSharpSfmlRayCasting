@@ -94,13 +94,13 @@ namespace CSharpSfmlRayCasting.Core
 
         private void Window2D_DisplayFrame()
         {
-            if(_window2D != null && _window2D.IsOpen)
+            if (_window2D != null && _window2D.IsOpen)
             {
                 _window2D.Clear(Config.WIN_2D_CLEAR_COLOR);
 
                 _world.WorldBlocs.ForEach(x => _window2D.Draw(x.Vertices));
 
-                _rayCaster.Rays.ForEach(x => _window2D.Draw(x.Vertices));
+                _window2D.Draw(_rayCaster.FovRender2D);
 
                 _window2D.Draw(_player.Body);
                 _window2D.Draw(_player.Eye);
@@ -111,7 +111,7 @@ namespace CSharpSfmlRayCasting.Core
 
         private void Window3D_DisplayFrame()
         {
-            if(_window3D != null && _window3D.IsOpen)
+            if (_window3D != null && _window3D.IsOpen)
             {
                 _window3D.Clear(Config.WIN_3D_CLEAR_COLOR);
 
