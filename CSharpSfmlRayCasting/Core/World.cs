@@ -16,8 +16,6 @@ namespace CSharpSfmlRayCasting.Core
         public List<Bloc> WorldBlocs { get; set; } = new List<Bloc>();
         public Bloc[,] MappedBlocs { get; set; } = null;
 
-        public List<VertexArray> WorldMatrix { get; set; } = new List<VertexArray>();
-
         public int Width { get; } = 0;
         public int Height { get; } = 0;
 
@@ -47,24 +45,6 @@ namespace CSharpSfmlRayCasting.Core
                         MappedBlocs[i, j] = new Bloc((int)i, (int)j, BlocType.BACKGROUND);
                     }
                 }
-            }
-
-            for(int i = 1; i < Width; ++i)
-            {
-                VertexArray col = new VertexArray(PrimitiveType.Lines, 2);
-                col[0] = new Vertex(new Vector2f(i * Config.BLOC_SIZE, 0), Color.Black);
-                col[1] = new Vertex(new Vector2f(i * Config.BLOC_SIZE, Height * Config.BLOC_SIZE), Color.Black);
-
-                WorldMatrix.Add(col);
-            }
-
-            for(int i = 1; i < Height; ++i)
-            {
-                VertexArray col = new VertexArray(PrimitiveType.Lines, 2);
-                col[0] = new Vertex(new Vector2f(0, i * Config.BLOC_SIZE), Color.Black);
-                col[1] = new Vertex(new Vector2f(Width * Config.BLOC_SIZE, i * Config.BLOC_SIZE), Color.Black);
-
-                WorldMatrix.Add(col);
             }
         }
     }

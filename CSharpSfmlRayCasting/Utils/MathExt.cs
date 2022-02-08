@@ -17,5 +17,19 @@ namespace CSharpSfmlRayCasting.Utils
         {
             return alpha * 180.0f / (float)Math.PI;
         }
+
+        public static int RoundCoordinates(float a)
+        {
+            if ((int)a % 10 == 0)
+                return (int)a;
+
+            if ((int)(a + 0.5f) % 10 == 0)
+                return (int)(a + 0.5f);
+
+            if ((int)(a - 0.5f) % 10 == 0)
+                return (int)(a - 0.5f);
+
+            return (int)Math.Round(a);
+        }
     }
 }

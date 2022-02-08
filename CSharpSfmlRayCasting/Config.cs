@@ -18,7 +18,7 @@ namespace CSharpSfmlRayCasting
         public const uint FRAME_DIFF_TIME = 30; // [ms]
 
         public const bool SHOW_2D_WINDOW = true;
-        public const bool SHOW_3D_WINDOW = false;
+        public const bool SHOW_3D_WINDOW = true;
 
         // 2D Window config
         public static readonly Color WIN_2D_CLEAR_COLOR = new Color(150, 150, 150);
@@ -30,6 +30,10 @@ namespace CSharpSfmlRayCasting
 
         // 2D World render config
         public const uint BLOC_SIZE = 10; // [px]
+        public static readonly Color WALLS_2D_RENDER_COLOR = new Color(0, 255, 0);
+
+        // 3D World render config
+        public static readonly Color WALLS_3D_RENDER_COLOR = new Color(0, 255, 0);
 
         // Map config
         public const string MAP_PATH = @"Ressources\map.bmp";
@@ -45,7 +49,8 @@ namespace CSharpSfmlRayCasting
         public const float PLAYER_FOV = 60.0f; // [deg]
 
         // RayCaster config
-        public static readonly float RAY_DIFF_ANGLE = PLAYER_FOV / WIN3D_WIDTH;
+        public const float RAY_DIFF_ANGLE = PLAYER_FOV / WIN3D_WIDTH;
         public const float RAY_LENGTH = 300.0f;
+        public static readonly Color FOV_RAY_COLOR = new Color(255, 255, 255, 100);
     }
 }

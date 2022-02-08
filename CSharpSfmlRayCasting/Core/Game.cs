@@ -66,6 +66,8 @@ namespace CSharpSfmlRayCasting.Core
 
                     _rayCaster.CastRays();
 
+                    _rayCaster.Generate3DRender();
+
                     _clock.Restart();
                 }
 
@@ -115,7 +117,7 @@ namespace CSharpSfmlRayCasting.Core
             {
                 _window3D.Clear(Config.WIN_3D_CLEAR_COLOR);
 
-
+                _window3D.Draw(_rayCaster.Render3D);
 
                 _window3D.Display();
             }

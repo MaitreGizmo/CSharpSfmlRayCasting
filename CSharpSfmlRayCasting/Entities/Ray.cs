@@ -24,5 +24,16 @@ namespace CSharpSfmlRayCasting.Entities
 
             Rotation = rotation;
         }
+
+        public float DistortedLength
+        {
+            get
+            {
+                float delta_x = Math.Abs(Origin.X - Destination.X);
+                float delta_y = Math.Abs(Origin.Y - Destination.Y);
+
+                return (float)Math.Sqrt(Math.Pow(delta_x, 2) + Math.Pow(delta_y, 2));
+            }
+        }
     }
 }

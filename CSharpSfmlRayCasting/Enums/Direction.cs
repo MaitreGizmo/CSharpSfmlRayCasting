@@ -14,6 +14,9 @@ namespace CSharpSfmlRayCasting.Enums
         LEFT,
         RIGHT,
         TOP,
-        BOTTOM
+        BOTTOM,
+        CORNER,
+        LEFT_RIGHT,
+        TOP_BOTTOM
     }
 }
